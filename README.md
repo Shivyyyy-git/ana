@@ -1,7 +1,6 @@
-# Personal site — Anastasia Tahou
+# Anastasia Tahou — personal site
 
-Plain HTML + CSS, no build step. Open `index.html` in a browser, or serve the
-folder over HTTP for clean URLs.
+Single-page personal website. Plain HTML + CSS, no build step.
 
 ## Local preview
 
@@ -10,88 +9,68 @@ python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
+Or open `index.html` directly in a browser.
+
 ## Layout
 
 ```
-index.html                       home
-resume.html                      résumé (HTML)
-anastasia-tahou-resume.pdf       résumé download (LinkedIn-exported PDF)
-anastasia-tahou-resume.docx      résumé source (Word)
-about.html                       long-form bio
+index.html                       the site (one page, all sections)
 404.html                         not-found page
-projects/
-  index.html                     project list
-  _template.html                 copy to create a new project page
-  example-project.html           delete or replace
-writing/
-  index.html                     post list
-  _template.html                 copy to create a new post
-  hello-world.html               delete or replace
+anastasia-tahou-resume.pdf       résumé download (PDF)
+anastasia-tahou-resume.docx      résumé source (Word)
 assets/
   css/style.css                  single shared stylesheet
   favicon.svg
-  img/                           put images here
 ```
 
-## Adding a project
+## Editing the content
 
-1. Copy `projects/_template.html` to `projects/<slug>.html`.
-2. Edit the title, description, and body.
-3. Add a card to `projects/index.html` linking to the new file.
+All copy lives in `index.html`. Sections are clearly marked:
 
-## Adding a post
+- `#home` — hero with name, role, location, and CTA buttons
+- `#about` — bio paragraphs and quick-stat cards
+- `#experience` — list of `.role-card` blocks (one per role)
+- `#education` — `.edu-card` blocks
+- `#skills` — `.chip` lists and `.skill-list` lists
+- `#contact` — clickable contact cards
 
-1. Copy `writing/_template.html` to `writing/<slug>.html`.
-2. Edit the title, date, and body.
-3. Add an `<li>` at the **top** of the list in `writing/index.html`.
+To add a new role, copy a `<article class="role-card">` block and edit the
+fields. Same pattern for education.
 
-## Updating the résumé
+## Updating the résumé download
 
-The canonical source is `anastasia-tahou-resume.docx` (Word). When it changes:
+When the résumé changes:
 
-1. Replace the .docx in the repo root.
-2. Re-export to PDF (LinkedIn export, Word "Save as PDF", or any tool) and
-   replace `anastasia-tahou-resume.pdf`.
-3. Update the corresponding sections in `resume.html` so the on-page version
-   matches the downloads.
-
-To extract the .docx text on a machine without `pandoc`:
-
-```sh
-unzip -p anastasia-tahou-resume.docx word/document.xml \
-  | python3 -c "import sys,xml.etree.ElementTree as ET; \
-    ns={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}; \
-    r=ET.fromstring(sys.stdin.read()); \
-    [print(''.join(t.text or '' for t in p.iter('{%s}t'%ns['w'])).strip()) \
-     for p in r.iter('{%s}p'%ns['w'])]"
-```
-
-Or with `pandoc` (cleaner): `pandoc anastasia-tahou-resume.docx -o resume.html`.
+1. Replace `anastasia-tahou-resume.docx` (the Word source).
+2. Re-export to PDF and replace `anastasia-tahou-resume.pdf`.
+3. Update the corresponding role/education/skills sections in `index.html`
+   so the on-page version matches the download.
 
 ## Customising the look
 
-All styles live in `assets/css/style.css`. The palette is defined as CSS
-custom properties at the top of the file:
+All styles are in `assets/css/style.css`. The palette is in CSS custom
+properties at the top of the file:
 
 ```css
---bg:     #fafaf7;   /* page background */
---ink:    #1a1a1a;   /* body text */
---muted:  #6b6b6b;   /* dates, secondary text */
---accent: #d4502e;   /* links, current-page indicator */
---rule:   #e6e3dc;   /* hairlines */
+--bg:        #ffffff;     /* page background */
+--bg-soft:   #f8fafc;     /* alternating section background */
+--ink:       #0f172a;     /* primary text */
+--muted:     #64748b;     /* secondary text */
+--accent:    #4f46e5;     /* buttons, links, highlights */
+--border:    #e2e8f0;     /* card borders */
 ```
 
-Change those five values to re-skin the site.
+Change those six values to re-skin the site.
 
 ## Hosting
 
-The site is pure static files, so any static host works:
+Pure static files — any static host works:
 
-- **GitHub Pages** — enable Pages on the branch in repo settings.
-- **Vercel / Netlify** — connect the repo, no build command, output dir `.`.
-- **S3 / Cloudflare Pages / anywhere else** — upload the folder.
+- **GitHub Pages** — Settings → Pages → deploy from this branch.
+- **Vercel / Netlify / Cloudflare Pages** — connect the repo, no build
+  command, output dir `.`.
 
 ## Print
 
-`resume.html` has a print stylesheet that hides the nav/footer and tightens
-spacing. `Cmd/Ctrl + P` produces a clean one-page PDF.
+The print stylesheet hides the nav, hero buttons, avatar, and footer so
+`Cmd/Ctrl + P` produces a clean text-only version of the résumé content.
