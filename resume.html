@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Résumé · Anastasia Tahou</title>
+  <meta name="description" content="Résumé of Anastasia Tahou.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header>
+  <nav class="site-nav" aria-label="Primary">
+    <a href="index.html" class="brand">Anastasia Tahou</a>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="resume.html" aria-current="page">Résumé</a></li>
+      <li><a href="projects/index.html">Projects</a></li>
+      <li><a href="writing/index.html">Writing</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!--
+    PLACEHOLDER CONTENT.
+    This section will be replaced with the contents of
+    Anastasia_Tahou_Resume_.docx once it is pushed to the branch.
+    To extract text from the .docx without pandoc, run:
+
+      unzip -p Anastasia_Tahou_Resume_.docx word/document.xml \
+        | python3 -c "import sys,xml.etree.ElementTree as ET; \
+          ns={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}; \
+          r=ET.fromstring(sys.stdin.read()); \
+          [print(''.join(t.text or '' for t in p.iter('{%s}t'%ns['w'])).strip()) \
+           for p in r.iter('{%s}p'%ns['w'])]"
+  -->
+
+  <header class="resume-header">
+    <h1>Anastasia Tahou</h1>
+    <div class="contact">
+      <div><a href="mailto:hello@example.com">hello@example.com</a></div>
+      <div>City, Country</div>
+      <div>
+        <a href="https://github.com/">GitHub</a> ·
+        <a href="https://www.linkedin.com/">LinkedIn</a>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p>One short paragraph summarising who you are, what you do, and what you&rsquo;re looking for.</p>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+
+    <article class="role">
+      <div class="role-head">
+        <span class="where">Company Name — Role Title</span>
+        <span class="when">Mon YYYY – Present</span>
+      </div>
+      <div class="what">One-line description of the team or product.</div>
+      <ul>
+        <li>Bullet describing an outcome you delivered, with a number where possible.</li>
+        <li>Another bullet emphasising scope, leadership, or technical depth.</li>
+        <li>A third bullet highlighting collaboration or impact.</li>
+      </ul>
+    </article>
+
+    <article class="role">
+      <div class="role-head">
+        <span class="where">Previous Company — Role Title</span>
+        <span class="when">Mon YYYY – Mon YYYY</span>
+      </div>
+      <div class="what">Short context line.</div>
+      <ul>
+        <li>Outcome bullet.</li>
+        <li>Outcome bullet.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <article class="role">
+      <div class="role-head">
+        <span class="where">University Name</span>
+        <span class="when">YYYY – YYYY</span>
+      </div>
+      <div class="what">Degree, Field of study.</div>
+    </article>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <dl class="skill-list">
+      <dt>Languages</dt><dd>Placeholder, placeholder, placeholder.</dd>
+      <dt>Tools</dt><dd>Placeholder, placeholder, placeholder.</dd>
+      <dt>Other</dt><dd>Placeholder, placeholder.</dd>
+    </dl>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <span>&copy; 2026 Anastasia Tahou</span>
+  <span><a href="index.html">Home</a></span>
+</footer>
+
+</body>
+</html>
