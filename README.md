@@ -13,22 +13,24 @@ python3 -m http.server 8000
 ## Layout
 
 ```
-index.html              home
-resume.html             résumé (populate from .docx — see below)
-about.html              long-form bio
-404.html                not-found page
+index.html                       home
+resume.html                      résumé (HTML)
+anastasia-tahou-resume.pdf       résumé download (LinkedIn-exported PDF)
+anastasia-tahou-resume.docx      résumé source (Word)
+about.html                       long-form bio
+404.html                         not-found page
 projects/
-  index.html            project list
-  _template.html        copy to create a new project page
-  example-project.html  delete or replace
+  index.html                     project list
+  _template.html                 copy to create a new project page
+  example-project.html           delete or replace
 writing/
-  index.html            post list
-  _template.html        copy to create a new post
-  hello-world.html      delete or replace
+  index.html                     post list
+  _template.html                 copy to create a new post
+  hello-world.html               delete or replace
 assets/
-  css/style.css         single shared stylesheet
+  css/style.css                  single shared stylesheet
   favicon.svg
-  img/                  put images here
+  img/                           put images here
 ```
 
 ## Adding a project
@@ -43,13 +45,20 @@ assets/
 2. Edit the title, date, and body.
 3. Add an `<li>` at the **top** of the list in `writing/index.html`.
 
-## Populating the résumé from the .docx
+## Updating the résumé
 
-The repo contains placeholder résumé copy. Once
-`Anastasia_Tahou_Resume_.docx` is in the repo root, extract the text:
+The canonical source is `anastasia-tahou-resume.docx` (Word). When it changes:
+
+1. Replace the .docx in the repo root.
+2. Re-export to PDF (LinkedIn export, Word "Save as PDF", or any tool) and
+   replace `anastasia-tahou-resume.pdf`.
+3. Update the corresponding sections in `resume.html` so the on-page version
+   matches the downloads.
+
+To extract the .docx text on a machine without `pandoc`:
 
 ```sh
-unzip -p Anastasia_Tahou_Resume_.docx word/document.xml \
+unzip -p anastasia-tahou-resume.docx word/document.xml \
   | python3 -c "import sys,xml.etree.ElementTree as ET; \
     ns={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}; \
     r=ET.fromstring(sys.stdin.read()); \
@@ -57,9 +66,7 @@ unzip -p Anastasia_Tahou_Resume_.docx word/document.xml \
      for p in r.iter('{%s}p'%ns['w'])]"
 ```
 
-Then hand-structure the output into the sections of `resume.html`.
-(`unzip` and `python3` are standard on macOS and most Linux. `pandoc` would
-be cleaner if you have it installed: `pandoc resume.docx -o resume.html`.)
+Or with `pandoc` (cleaner): `pandoc anastasia-tahou-resume.docx -o resume.html`.
 
 ## Customising the look
 

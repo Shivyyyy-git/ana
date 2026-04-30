@@ -192,6 +192,8 @@ pre {
 }
 .resume-header .contact a { color: var(--muted); text-decoration: none; }
 .resume-header .contact a:hover { color: var(--accent); }
+.resume-header .downloads { margin-top: 0.4rem; }
+.resume-header .downloads a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 
 .role {
   margin-bottom: var(--s3);
