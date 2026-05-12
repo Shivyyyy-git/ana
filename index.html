@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,371 +7,797 @@
 <meta name="description" content="Anastasia (Ana) Tahou — higher education professional with 8+ years in international student services, DEI programming, and community engagement." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
     --bg: #fbf6ee;
     --bg-soft: #f5ecdc;
     --ink: #2a1f17;
     --ink-soft: #5c4a3c;
+    --ink-faint: #8a7766;
     --accent: #c2533a;
-    --accent-soft: #e8a892;
+    --accent-2: #e88a4e;
+    --accent-soft: #f3c6a8;
+    --warm: #f3d9b8;
     --rule: #e3d6c1;
     --card: #ffffff;
+    --shadow: 0 24px 60px -28px rgba(80, 40, 20, .35);
+  }
+  [data-theme="dark"] {
+    --bg: #1a1410;
+    --bg-soft: #241b15;
+    --ink: #f4ece0;
+    --ink-soft: #c9b9a8;
+    --ink-faint: #8a7766;
+    --accent: #f08667;
+    --accent-2: #f3a878;
+    --accent-soft: #6a3024;
+    --warm: #3a2a1c;
+    --rule: #3a2d22;
+    --card: #241b15;
+    --shadow: 0 24px 60px -28px rgba(0, 0, 0, .6);
   }
 
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   html, body { margin: 0; padding: 0; }
   body {
     background: var(--bg);
     color: var(--ink);
     font-family: 'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
-    line-height: 1.6;
+    line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    transition: background .4s ease, color .4s ease;
   }
 
-  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s ease; }
-  a:hover { border-bottom-color: var(--accent); }
+  /* Animated background blobs */
+  .bg-blobs {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: .45;
+    transition: opacity .6s ease;
+  }
+  .blob.b1 {
+    width: 520px; height: 520px;
+    background: var(--accent-soft);
+    top: -120px; right: -120px;
+    animation: float1 18s ease-in-out infinite;
+  }
+  .blob.b2 {
+    width: 480px; height: 480px;
+    background: var(--warm);
+    bottom: -100px; left: -120px;
+    animation: float2 22s ease-in-out infinite;
+  }
+  .blob.b3 {
+    width: 360px; height: 360px;
+    background: var(--accent-2);
+    top: 40%; left: 50%;
+    opacity: .18;
+    animation: float3 26s ease-in-out infinite;
+  }
+  [data-theme="dark"] .blob { opacity: .25; }
+  [data-theme="dark"] .blob.b3 { opacity: .12; }
 
-  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+  @keyframes float1 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(-40px,60px) scale(1.08); }
+  }
+  @keyframes float2 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(50px,-40px) scale(1.12); }
+  }
+  @keyframes float3 {
+    0%,100% { transform: translate(-50%,-50%) scale(1); }
+    50% { transform: translate(-45%,-55%) scale(1.15); }
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+
+  /* Nav */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    background: color-mix(in srgb, var(--bg) 78%, transparent);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease, background .3s ease;
+  }
+  .nav.scrolled { border-bottom-color: var(--rule); }
+  .nav-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .logo {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo .dot {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.35); opacity: .55; }
+  }
+  .nav-links {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 14px;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    padding: 8px 14px;
+    border-radius: 999px;
+    transition: color .2s ease, background .2s ease;
+  }
+  .nav-links a:hover { color: var(--ink); background: var(--bg-soft); }
+  .nav-links a.active { color: var(--accent); }
+  .theme-btn {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s ease, border-color .2s ease, background .2s ease;
+  }
+  .theme-btn:hover { transform: rotate(20deg); background: var(--bg-soft); border-color: var(--accent); }
+  .theme-btn svg { width: 18px; height: 18px; }
+
+  @media (max-width: 640px) {
+    .nav-links a:not(.theme-btn) { display: none; }
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
   /* Hero */
   .hero {
-    padding: 96px 0 72px;
+    padding: 80px 0 96px;
     position: relative;
-    overflow: hidden;
   }
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 85% 10%, var(--accent-soft) 0, transparent 45%),
-                radial-gradient(circle at 10% 80%, #f3d9b8 0, transparent 50%);
-    opacity: .55;
-    z-index: 0;
-    pointer-events: none;
-  }
-  .hero .wrap {
-    position: relative;
-    z-index: 1;
+  .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 220px;
-    gap: 48px;
+    grid-template-columns: 1fr 280px;
+    gap: 56px;
     align-items: center;
   }
-  @media (max-width: 720px) {
-    .hero .wrap { grid-template-columns: 1fr; gap: 32px; }
-    .portrait { order: -1; justify-self: start; }
-  }
-
-  .portrait {
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-soft), #f3d9b8);
-    border: 6px solid #fff;
-    box-shadow: 0 18px 40px -18px rgba(80, 40, 20, .35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Fraunces', Georgia, serif;
-    font-weight: 600;
-    font-size: 72px;
-    color: var(--accent);
-    letter-spacing: -0.02em;
-    user-select: none;
+  @media (max-width: 820px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .portrait-wrap { order: -1; }
   }
 
   .eyebrow {
-    font-family: 'Inter', sans-serif;
     text-transform: uppercase;
-    letter-spacing: .18em;
+    letter-spacing: .22em;
     font-size: 12px;
     color: var(--accent);
     font-weight: 600;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 28px; height: 1px;
+    background: var(--accent);
+    display: inline-block;
   }
   h1 {
     font-family: 'Fraunces', Georgia, serif;
-    font-weight: 600;
-    font-size: clamp(40px, 6vw, 64px);
-    line-height: 1.08;
-    margin: 0 0 20px;
-    letter-spacing: -0.01em;
+    font-weight: 500;
+    font-size: clamp(44px, 6.6vw, 76px);
+    line-height: 1.04;
+    margin: 0 0 24px;
+    letter-spacing: -0.02em;
   }
-  h1 em {
+  h1 .grad {
+    background: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 60%, var(--accent) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     font-style: italic;
-    color: var(--accent);
     font-weight: 600;
+    animation: shimmer 6s linear infinite;
+  }
+  @keyframes shimmer {
+    to { background-position: 200% center; }
   }
   .lede {
-    font-size: clamp(17px, 1.6vw, 19px);
+    font-size: clamp(17px, 1.5vw, 19px);
     color: var(--ink-soft);
     max-width: 620px;
-    margin: 0 0 32px;
+    margin: 0 0 36px;
   }
-  .cta-row {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
   .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 22px;
     border-radius: 999px;
     font-weight: 500;
     font-size: 15px;
     border: 1px solid transparent;
-    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+    position: relative;
+    overflow: hidden;
   }
-  .btn:hover { transform: translateY(-1px); border-bottom-color: transparent; }
+  .btn:hover { transform: translateY(-2px); }
   .btn-primary {
     background: var(--accent);
     color: #fff;
+    box-shadow: 0 10px 24px -10px var(--accent);
   }
-  .btn-primary:hover { background: #a8442e; }
+  .btn-primary:hover { background: var(--ink); box-shadow: 0 14px 30px -10px rgba(0,0,0,.35); }
   .btn-ghost {
     background: transparent;
     color: var(--ink);
     border-color: var(--rule);
   }
-  .btn-ghost:hover { background: var(--bg-soft); }
+  .btn-ghost:hover { background: var(--bg-soft); border-color: var(--accent); color: var(--accent); }
+  .btn .arrow { transition: transform .25s ease; }
+  .btn:hover .arrow { transform: translateX(4px); }
 
-  /* Sections */
-  section { padding: 64px 0; }
-  section + section { border-top: 1px solid var(--rule); }
-  h2 {
+  /* Portrait */
+  .portrait-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .portrait {
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-soft), var(--warm));
+    border: 8px solid var(--card);
+    box-shadow: var(--shadow);
+    display: flex; align-items: center; justify-content: center;
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 600;
-    font-size: 28px;
-    margin: 0 0 28px;
-    letter-spacing: -0.01em;
-  }
-  h2 .num {
+    font-size: 96px;
     color: var(--accent);
-    font-size: 14px;
-    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.03em;
+    user-select: none;
+    position: relative;
+    z-index: 2;
+    transition: transform .5s cubic-bezier(.2,.8,.2,1);
+  }
+  .portrait:hover { transform: scale(1.04) rotate(-2deg); }
+  .portrait-ring {
+    position: absolute;
+    inset: -22px;
+    border-radius: 50%;
+    border: 1px dashed var(--accent);
+    opacity: .45;
+    animation: spin 28s linear infinite;
+  }
+  .portrait-ring::before, .portrait-ring::after {
+    content: "";
+    position: absolute;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .portrait-ring::before { top: -5px; left: 50%; transform: translateX(-50%); }
+  .portrait-ring::after { bottom: -5px; left: 50%; transform: translateX(-50%); background: var(--accent-2); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Stats marquee */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 64px;
+    padding: 28px 32px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+  }
+  .stat {
+    text-align: center;
+    padding: 8px 12px;
+    border-right: 1px solid var(--rule);
+  }
+  .stat:last-child { border-right: 0; }
+  .stat-num {
+    font-family: 'Fraunces', Georgia, serif;
     font-weight: 600;
+    font-size: clamp(28px, 3vw, 40px);
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
     letter-spacing: .12em;
-    vertical-align: middle;
-    margin-right: 12px;
+    color: var(--ink-faint);
+    margin-top: 8px;
+  }
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .stat { border-right: 0; border-bottom: 1px solid var(--rule); padding-bottom: 14px; }
+    .stat:nth-last-child(-n+2) { border-bottom: 0; padding-bottom: 8px; }
   }
 
+  /* Sections */
+  section { padding: 96px 0; position: relative; }
+  .section-head { margin-bottom: 48px; }
+  .section-head .kicker {
+    text-transform: uppercase;
+    letter-spacing: .22em;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-head .kicker::before {
+    content: "";
+    width: 28px; height: 1px;
+    background: var(--accent);
+  }
+  h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(32px, 4vw, 44px);
+    margin: 0;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  h2 em { font-style: italic; color: var(--accent); font-weight: 600; }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; gap: 28px; } }
   .about p {
     font-size: 17px;
     color: var(--ink-soft);
-    max-width: 680px;
   }
-  .about p + p { margin-top: 14px; }
+  .about p + p { margin-top: 16px; }
 
-  /* Experience timeline */
+  .values {
+    display: grid;
+    gap: 16px;
+  }
+  .value {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 16px;
+    padding: 20px 22px;
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    cursor: default;
+  }
+  .value:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+  }
+  .value-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--bg-soft);
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .value-icon svg { width: 18px; height: 18px; }
+  .value h4 {
+    margin: 0 0 4px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  .value p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+
+  /* Timeline */
+  .timeline { position: relative; }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 130px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--rule), transparent);
+  }
+  @media (max-width: 720px) { .timeline::before { display: none; } }
+
   .role {
     display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 28px;
-    padding: 24px 0;
-    border-top: 1px dashed var(--rule);
+    grid-template-columns: 130px 1fr;
+    gap: 40px;
+    padding: 28px 0;
+    position: relative;
+    cursor: pointer;
   }
-  .role:first-child { border-top: 0; padding-top: 0; }
+  .role::after {
+    content: "";
+    position: absolute;
+    left: 126px;
+    top: 38px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    transition: transform .3s ease, background .3s ease;
+  }
+  .role:hover::after { transform: scale(1.4); background: var(--accent); }
+  @media (max-width: 720px) {
+    .role { grid-template-columns: 1fr; gap: 8px; padding: 20px 0; border-top: 1px solid var(--rule); }
+    .role:first-child { border-top: 0; }
+    .role::after { display: none; }
+  }
+
   .role .when {
     font-size: 13px;
-    color: var(--ink-soft);
+    color: var(--ink-faint);
     letter-spacing: .04em;
     font-variant-numeric: tabular-nums;
-    padding-top: 4px;
+    padding-top: 6px;
+    font-weight: 500;
+  }
+  .role-body {
+    background: transparent;
+    border-radius: 14px;
+    padding: 4px 0;
+    transition: background .3s ease, padding .3s ease;
+  }
+  .role:hover .role-body {
+    background: var(--card);
+    padding: 14px 18px;
+    box-shadow: var(--shadow);
   }
   .role h3 {
     margin: 0 0 4px;
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 600;
-    font-size: 19px;
+    font-size: 20px;
+    letter-spacing: -0.01em;
   }
   .role .org {
     color: var(--ink-soft);
     font-size: 14px;
-    margin: 0 0 10px;
+    margin: 0 0 12px;
   }
   .role ul {
     margin: 8px 0 0;
     padding-left: 18px;
     color: var(--ink-soft);
+    font-size: 15px;
   }
   .role li { margin-bottom: 6px; }
   .role li::marker { color: var(--accent); }
 
-  @media (max-width: 640px) {
-    .role { grid-template-columns: 1fr; gap: 8px; }
-    .role .when { padding-top: 0; }
-  }
-
-  /* Education + Skills two-up */
+  /* Skills / Education */
   .twoup {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 56px;
   }
-  @media (max-width: 640px) { .twoup { grid-template-columns: 1fr; } }
+  @media (max-width: 820px) { .twoup { grid-template-columns: 1fr; gap: 32px; } }
   .card-title {
     font-family: 'Fraunces', Georgia, serif;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 19px;
     margin: 0 0 4px;
   }
   .card-meta { color: var(--ink-soft); font-size: 14px; margin: 0 0 8px; }
-  .honors {
-    color: var(--ink-soft);
-    font-size: 14px;
-    font-style: italic;
-  }
-  .deg + .deg { margin-top: 22px; }
+  .honors { color: var(--ink-faint); font-size: 14px; font-style: italic; }
+  .deg + .deg { margin-top: 26px; }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
   .chip {
-    background: var(--bg-soft);
+    background: var(--card);
     border: 1px solid var(--rule);
-    color: var(--ink);
-    padding: 6px 12px;
+    color: var(--ink-soft);
+    padding: 7px 14px;
     border-radius: 999px;
     font-size: 13px;
+    transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease;
+    cursor: default;
   }
-  .skill-group + .skill-group { margin-top: 18px; }
+  .chip:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .skill-group + .skill-group { margin-top: 22px; }
   .skill-label {
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
-    letter-spacing: .12em;
+    letter-spacing: .18em;
     color: var(--accent);
     font-weight: 600;
   }
 
   /* Contact */
   .contact-card {
-    background: var(--card);
-    border: 1px solid var(--rule);
-    border-radius: 18px;
-    padding: 36px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 24px;
-    align-items: center;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-radius: 28px;
+    padding: 56px 48px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(194,83,58,.6);
   }
-  @media (max-width: 640px) { .contact-card { grid-template-columns: 1fr; } }
-  .contact-card h2 { margin: 0 0 6px; }
-  .contact-card p { margin: 0; color: var(--ink-soft); }
-  .contact-links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; }
+  .contact-card::before {
+    content: "";
+    position: absolute;
+    top: -100px; right: -80px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.12);
+    filter: blur(20px);
+  }
+  .contact-card::after {
+    content: "";
+    position: absolute;
+    bottom: -120px; left: -100px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+    filter: blur(30px);
+  }
+  .contact-inner { position: relative; z-index: 1; }
+  .contact-card h2 { color: #fff; margin: 0 0 12px; }
+  .contact-card h2 em { color: #ffe9d6; }
+  .contact-card p { color: rgba(255,255,255,.88); max-width: 520px; margin: 0 0 28px; }
+  .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .contact-btn {
+    background: rgba(255,255,255,.16);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.28);
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    backdrop-filter: blur(8px);
+    transition: background .2s ease, transform .2s ease;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .contact-btn:hover { background: #fff; color: var(--accent); transform: translateY(-2px); }
+  .contact-btn.solid { background: #fff; color: var(--accent); }
+  .contact-btn.solid:hover { background: var(--ink); color: #fff; }
 
   footer {
-    padding: 32px 0 48px;
-    color: var(--ink-soft);
+    padding: 36px 0 56px;
+    color: var(--ink-faint);
     font-size: 13px;
     text-align: center;
+    border-top: 1px solid var(--rule);
+    margin-top: 64px;
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: .08s; }
+  .reveal.delay-2 { transition-delay: .16s; }
+  .reveal.delay-3 { transition-delay: .24s; }
+
+  ::selection { background: var(--accent); color: #fff; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
   }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<div class="bg-blobs" aria-hidden="true">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo"><span class="dot"></span> Anastasia Tahou</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg id="iconSun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
   <div class="wrap">
-    <div>
-      <div class="eyebrow">Hello, I'm Ana</div>
-      <h1>Building spaces where <em>students belong.</em></h1>
-      <p class="lede">
-        I'm Anastasia Tahou — a higher education professional with 8+ years across international
-        student services, DEI programming, and community engagement. I design inclusive programs,
-        grow student staff teams, and bring people across campus together around what matters.
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="mailto:stasiatahou@gmail.com">Get in touch</a>
-        <a class="btn btn-ghost" href="Anastasia_Tahou_Resume_.docx" download>Download résumé</a>
-        <a class="btn btn-ghost" href="https://linkedin.com/in/anastasiatahou" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow reveal">Hello, I'm Ana</div>
+        <h1 class="reveal delay-1">Building spaces<br/>where <span class="grad">students belong.</span></h1>
+        <p class="lede reveal delay-2">
+          A higher education professional with 8+ years across international student services, DEI programming,
+          and community engagement — designing inclusive programs, growing student staff teams, and bringing
+          people across campus together around what matters.
+        </p>
+        <div class="cta-row reveal delay-3">
+          <a class="btn btn-primary" href="#contact">Get in touch <span class="arrow">→</span></a>
+          <a class="btn btn-ghost" href="https://linkedin.com/in/anastasiatahou" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="portrait-wrap reveal delay-2">
+        <div class="portrait-ring"></div>
+        <div class="portrait" aria-label="Portrait placeholder">AT</div>
       </div>
     </div>
-    <div class="portrait" aria-label="Portrait placeholder for Anastasia Tahou">AT</div>
+
+    <div class="stats reveal delay-3">
+      <div class="stat"><div class="stat-num" data-count="8">0</div><div class="stat-label">Years in higher ed</div></div>
+      <div class="stat"><div class="stat-num" data-count="3500" data-suffix="+">0</div><div class="stat-label">Students served</div></div>
+      <div class="stat"><div class="stat-num" data-count="50" data-suffix="+">0</div><div class="stat-label">Annual programs</div></div>
+      <div class="stat"><div class="stat-num" data-count="40" data-prefix="$" data-suffix="K+">0</div><div class="stat-label">Funds raised</div></div>
+    </div>
   </div>
 </header>
 
-<section class="about">
+<section id="about" class="about">
   <div class="wrap">
-    <h2><span class="num">01</span>About</h2>
-    <p>
-      Based in Rochester, NY and open to relocation, I work at the intersection of student support,
-      programming, and operations. My background bridges international services and DEI — running
-      orientations and cultural programs for thousands of students, leading student staff teams,
-      and partnering across departments to make institutional goals real on the ground.
-    </p>
-    <p>
-      I care about the small things that make a program feel intentional: a thoughtful
-      newsletter, a well-run event, a student who feels seen. I bring restorative practice,
-      a researcher's curiosity, and a coordinator's attention to detail to every project.
-    </p>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <h2><span class="num">02</span>Experience</h2>
-
-    <div class="role">
-      <div class="when">Oct 2022 — Present</div>
-      <div>
-        <h3>Program Coordinator for Support &amp; Engagement</h3>
-        <p class="org">University of Rochester · International Services Office</p>
-        <ul>
-          <li>Coordinate 50+ annual cultural, educational, and recreational programs — including International Education Week and International Student Orientation — for a community of 3,500+ students.</li>
-          <li>Hire, lead, and mentor a team of 10 student workers across event support, social media, and marketing; manage and reconcile the programming budget.</li>
-          <li>Oversee office social media, design promotional materials and infographics, and produce targeted newsletters for multiple student populations.</li>
-          <li>Design and conduct SSN and ITIN training for hiring managers and student employees; support Sprintax Tax Filing and ITIN Application logistics.</li>
-        </ul>
-      </div>
+    <div class="section-head reveal">
+      <div class="kicker">01 — About</div>
+      <h2>Student-centered. <em>People-led.</em></h2>
     </div>
-
-    <div class="role">
-      <div class="when">Aug 2018 — Nov 2021</div>
-      <div>
-        <h3>Executive Assistant to the VP</h3>
-        <p class="org">Nazareth University · Division for Community &amp; Belonging</p>
-        <ul>
-          <li>Managed calendars, a $250K budget, and travel for the inaugural VP, AVP, and two directors.</li>
-          <li>Coordinated internal governance bodies including the Board of Trustees Committee, Advisory Council, and Bias Response &amp; Education Team; led external partnerships through the WNY Diversity Officers group.</li>
-          <li>Managed 5 annual institutional programs, including establishing the university's first Latinx Heritage Month.</li>
-          <li>Supervised 4 graduate assistants; adjudicated student conduct cases as a Hearing Board member and helped design the university's first campus climate and DEI curriculum surveys.</li>
-        </ul>
+    <div class="about-grid">
+      <div class="reveal">
+        <p>
+          Based in Rochester, NY and open to relocation, I work at the intersection of student support,
+          programming, and operations. My background bridges international services and DEI — running
+          orientations and cultural programs for thousands of students, leading student staff teams,
+          and partnering across departments to make institutional goals real on the ground.
+        </p>
+        <p>
+          I care about the small things that make a program feel intentional: a thoughtful newsletter,
+          a well-run event, a student who feels seen. I bring restorative practice, a researcher's
+          curiosity, and a coordinator's attention to detail to every project.
+        </p>
       </div>
-    </div>
-
-    <div class="role">
-      <div class="when">Aug — Dec 2020</div>
-      <div>
-        <h3>Adjunct Professor</h3>
-        <p class="org">Nazareth University · Academic &amp; College Success</p>
-        <ul>
-          <li>Taught a first-year seminar exploring identity, motivation, and approaches to learning.</li>
-          <li>Advised students individually to support college transition and goal-setting.</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="role">
-      <div class="when">Aug 2015 — Jul 2018</div>
-      <div>
-        <h3>Administrative Coordinator &amp; Graduate Assistant</h3>
-        <p class="org">Nazareth University · Hickey Center for Interfaith Studies &amp; Dialogue</p>
-        <ul>
-          <li>Organized conferences for 50+ international scholars and 500 students, increasing participation by 30%.</li>
-          <li>Raised $40K+ over 3 years through donation and proposal letters to individuals and organizations.</li>
-          <li>Analyzed qualitative survey data in NVivo to determine student learning outcomes.</li>
-        </ul>
+      <div class="values reveal delay-1">
+        <div class="value">
+          <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <h4>Inclusive by design</h4>
+          <p>Programs built so every student finds a way in.</p>
+        </div>
+        <div class="value">
+          <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <h4>Cross-campus glue</h4>
+          <p>Comfortable connecting offices, students, and leadership.</p>
+        </div>
+        <div class="value">
+          <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <h4>Operationally sharp</h4>
+          <p>Budgets, calendars, and logistics that don't drop.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<section id="experience">
   <div class="wrap">
-    <h2><span class="num">03</span>Education &amp; Skills</h2>
+    <div class="section-head reveal">
+      <div class="kicker">02 — Experience</div>
+      <h2>A career in <em>community.</em></h2>
+    </div>
+
+    <div class="timeline">
+      <div class="role reveal">
+        <div class="when">Oct 2022 — Present</div>
+        <div class="role-body">
+          <h3>Program Coordinator for Support &amp; Engagement</h3>
+          <p class="org">University of Rochester · International Services Office</p>
+          <ul>
+            <li>Coordinate 50+ annual cultural, educational, and recreational programs — including International Education Week and International Student Orientation — for a community of 3,500+ students.</li>
+            <li>Hire, lead, and mentor a team of 10 student workers across event support, social media, and marketing; manage and reconcile the programming budget.</li>
+            <li>Oversee office social media, design promotional materials and infographics, and produce targeted newsletters for multiple student populations.</li>
+            <li>Design and conduct SSN and ITIN training for hiring managers and student employees; support Sprintax Tax Filing and ITIN Application logistics.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role reveal">
+        <div class="when">Aug 2018 — Nov 2021</div>
+        <div class="role-body">
+          <h3>Executive Assistant to the VP</h3>
+          <p class="org">Nazareth University · Division for Community &amp; Belonging</p>
+          <ul>
+            <li>Managed calendars, a $250K budget, and travel for the inaugural VP, AVP, and two directors.</li>
+            <li>Coordinated internal governance bodies including the Board of Trustees Committee, Advisory Council, and Bias Response &amp; Education Team; led external partnerships through the WNY Diversity Officers group.</li>
+            <li>Managed 5 annual institutional programs, including establishing the university's first Latinx Heritage Month.</li>
+            <li>Supervised 4 graduate assistants; adjudicated student conduct cases as a Hearing Board member and helped design the university's first campus climate and DEI curriculum surveys.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role reveal">
+        <div class="when">Aug — Dec 2020</div>
+        <div class="role-body">
+          <h3>Adjunct Professor</h3>
+          <p class="org">Nazareth University · Academic &amp; College Success</p>
+          <ul>
+            <li>Taught a first-year seminar exploring identity, motivation, and approaches to learning.</li>
+            <li>Advised students individually to support college transition and goal-setting.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role reveal">
+        <div class="when">Aug 2015 — Jul 2018</div>
+        <div class="role-body">
+          <h3>Administrative Coordinator &amp; Graduate Assistant</h3>
+          <p class="org">Nazareth University · Hickey Center for Interfaith Studies &amp; Dialogue</p>
+          <ul>
+            <li>Organized conferences for 50+ international scholars and 500 students, increasing participation by 30%.</li>
+            <li>Raised $40K+ over 3 years through donation and proposal letters to individuals and organizations.</li>
+            <li>Analyzed qualitative survey data in NVivo to determine student learning outcomes.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="kicker">03 — Education &amp; Skills</div>
+      <h2>What I've <em>studied &amp; built.</em></h2>
+    </div>
     <div class="twoup">
-      <div>
+      <div class="reveal">
         <div class="deg">
           <p class="card-title">M.S., Higher Education Student Affairs Administration</p>
           <p class="card-meta">Nazareth University · May 2017</p>
@@ -383,7 +809,7 @@
           <p class="honors">Summa Cum Laude · Phi Kappa Phi · Psi Chi · Theta Alpha Kappa</p>
         </div>
       </div>
-      <div>
+      <div class="reveal delay-1">
         <div class="skill-group">
           <div class="skill-label">Student Affairs Systems</div>
           <div class="chips">
@@ -423,26 +849,105 @@
   </div>
 </section>
 
-<section>
+<section id="contact">
   <div class="wrap">
-    <div class="contact-card">
-      <div>
-        <h2 style="margin:0 0 6px">Let's connect.</h2>
-        <p>Open to new opportunities and relocation. The fastest way to reach me is email.</p>
-      </div>
-      <div class="contact-links">
-        <a href="mailto:stasiatahou@gmail.com">stasiatahou@gmail.com</a>
-        <a href="Anastasia_Tahou_Resume_.docx" download>Résumé</a>
-        <a href="https://linkedin.com/in/anastasiatahou" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="contact-card reveal">
+      <div class="contact-inner">
+        <h2>Let's <em>connect.</em></h2>
+        <p>Open to new opportunities and relocation. The fastest way to reach me is email — I'll get back to you within a day or two.</p>
+        <div class="contact-links">
+          <a class="contact-btn solid" href="mailto:stasiatahou@gmail.com">stasiatahou@gmail.com →</a>
+          <a class="contact-btn" href="https://linkedin.com/in/anastasiatahou" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="contact-btn" href="tel:5857525202">585-752-5202</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap">© <span id="yr"></span> Anastasia Tahou · Rochester, NY</div>
+  <div class="wrap">© <span id="yr"></span> Anastasia Tahou · Rochester, NY · Built with care</div>
 </footer>
 
-<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+<script>
+  // Year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Theme toggle
+  const root = document.documentElement;
+  const themeBtn = document.getElementById('themeBtn');
+  const stored = localStorage.getItem('ana-theme');
+  if (stored) root.setAttribute('data-theme', stored);
+  themeBtn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('ana-theme', next);
+  });
+
+  // Sticky nav shadow
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Active link highlight
+  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  const sections = [...navLinks].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = '#' + e.target.id;
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => spy.observe(s));
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => io.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.stat-num[data-count]');
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.count, 10);
+      const prefix = el.dataset.prefix || '';
+      const suffix = el.dataset.suffix || '';
+      const dur = 1400;
+      const start = performance.now();
+      const tick = (t) => {
+        const p = Math.min(1, (t - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = Math.round(target * eased);
+        el.textContent = prefix + val.toLocaleString() + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      countIO.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(c => countIO.observe(c));
+
+  // Subtle parallax on hero portrait
+  const portrait = document.querySelector('.portrait');
+  if (portrait && window.matchMedia('(hover:hover)').matches) {
+    document.addEventListener('mousemove', (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      portrait.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  }
+</script>
 </body>
 </html>
