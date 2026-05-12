@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-label="Portrait placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5f1e8"/>
+      <stop offset="100%" stop-color="#ece5d3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#d9a47b" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#d9a47b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <rect width="800" height="1000" fill="url(#glow)"/>
+  <g fill="none" stroke="#b8744a" stroke-width="1.5" opacity="0.4">
+    <rect x="40" y="40" width="720" height="920" rx="8"/>
+  </g>
+  <text x="400" y="430" text-anchor="middle"
+        font-family="Cormorant Garamond, Georgia, serif"
+        font-weight="500" font-size="240" fill="#1a2942" letter-spacing="-4">
+    AT
+  </text>
+  <line x1="340" y1="500" x2="460" y2="500" stroke="#b8744a" stroke-width="2"/>
+  <text x="400" y="560" text-anchor="middle"
+        font-family="Inter, sans-serif" font-weight="500" font-size="22"
+        letter-spacing="6" fill="#1a2942" opacity="0.7">
+    ANASTASIA TAHOU
+  </text>
+  <text x="400" y="610" text-anchor="middle"
+        font-family="Inter, sans-serif" font-weight="400" font-size="14"
+        letter-spacing="3" fill="#6b7280">
+    PORTRAIT PLACEHOLDER
+  </text>
+  <text x="400" y="640" text-anchor="middle"
+        font-family="Inter, sans-serif" font-weight="400" font-size="13"
+        letter-spacing="1" fill="#6b7280">
+    Replace assets/portrait.svg with assets/portrait.jpg
+  </text>
+</svg>
