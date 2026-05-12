@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Anastasia Tahou — Higher Education Professional</title>
+<meta name="description" content="Anastasia (Ana) Tahou — higher education professional with 8+ years in international student services, DEI programming, and community engagement." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #fbf6ee;
+    --bg-soft: #f5ecdc;
+    --ink: #2a1f17;
+    --ink-soft: #5c4a3c;
+    --accent: #c2533a;
+    --accent-soft: #e8a892;
+    --rule: #e3d6c1;
+    --card: #ffffff;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s ease; }
+  a:hover { border-bottom-color: var(--accent); }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+
+  /* Hero */
+  .hero {
+    padding: 96px 0 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 85% 10%, var(--accent-soft) 0, transparent 45%),
+                radial-gradient(circle at 10% 80%, #f3d9b8 0, transparent 50%);
+    opacity: .55;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(40px, 6vw, 64px);
+    line-height: 1.08;
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .lede {
+    font-size: clamp(17px, 1.6vw, 19px);
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 0 0 32px;
+  }
+  .cta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1px solid transparent;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); border-bottom-color: transparent; }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #a8442e; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--rule);
+  }
+  .btn-ghost:hover { background: var(--bg-soft); }
+
+  /* Sections */
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--rule); }
+  h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: 28px;
+    margin: 0 0 28px;
+    letter-spacing: -0.01em;
+  }
+  h2 .num {
+    color: var(--accent);
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: .12em;
+    vertical-align: middle;
+    margin-right: 12px;
+  }
+
+  .about p {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 680px;
+  }
+  .about p + p { margin-top: 14px; }
+
+  /* Experience timeline */
+  .role {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 28px;
+    padding: 24px 0;
+    border-top: 1px dashed var(--rule);
+  }
+  .role:first-child { border-top: 0; padding-top: 0; }
+  .role .when {
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: .04em;
+    font-variant-numeric: tabular-nums;
+    padding-top: 4px;
+  }
+  .role h3 {
+    margin: 0 0 4px;
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: 19px;
+  }
+  .role .org {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 10px;
+  }
+  .role ul {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    color: var(--ink-soft);
+  }
+  .role li { margin-bottom: 6px; }
+  .role li::marker { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .role { grid-template-columns: 1fr; gap: 8px; }
+    .role .when { padding-top: 0; }
+  }
+
+  /* Education + Skills two-up */
+  .twoup {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+  }
+  @media (max-width: 640px) { .twoup { grid-template-columns: 1fr; } }
+  .card-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 0 4px;
+  }
+  .card-meta { color: var(--ink-soft); font-size: 14px; margin: 0 0 8px; }
+  .honors {
+    color: var(--ink-soft);
+    font-size: 14px;
+    font-style: italic;
+  }
+  .deg + .deg { margin-top: 22px; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .chip {
+    background: var(--bg-soft);
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+  }
+  .skill-group + .skill-group { margin-top: 18px; }
+  .skill-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* Contact */
+  .contact-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 18px;
+    padding: 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  @media (max-width: 640px) { .contact-card { grid-template-columns: 1fr; } }
+  .contact-card h2 { margin: 0 0 6px; }
+  .contact-card p { margin: 0; color: var(--ink-soft); }
+  .contact-links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 15px; }
+
+  footer {
+    padding: 32px 0 48px;
+    color: var(--ink-soft);
+    font-size: 13px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Hello, I'm Ana</div>
+    <h1>Building spaces where <em>students belong.</em></h1>
+    <p class="lede">
+      I'm Anastasia Tahou — a higher education professional with 8+ years across international
+      student services, DEI programming, and community engagement. I design inclusive programs,
+      grow student staff teams, and bring people across campus together around what matters.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:stasiatahou@gmail.com">Get in touch</a>
+      <a class="btn btn-ghost" href="https://linkedin.com/in/anastasiatahou" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</header>
+
+<section class="about">
+  <div class="wrap">
+    <h2><span class="num">01</span>About</h2>
+    <p>
+      Based in Rochester, NY and open to relocation, I work at the intersection of student support,
+      programming, and operations. My background bridges international services and DEI — running
+      orientations and cultural programs for thousands of students, leading student staff teams,
+      and partnering across departments to make institutional goals real on the ground.
+    </p>
+    <p>
+      I care about the small things that make a program feel intentional: a thoughtful
+      newsletter, a well-run event, a student who feels seen. I bring restorative practice,
+      a researcher's curiosity, and a coordinator's attention to detail to every project.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">02</span>Experience</h2>
+
+    <div class="role">
+      <div class="when">Oct 2022 — Present</div>
+      <div>
+        <h3>Program Coordinator for Support &amp; Engagement</h3>
+        <p class="org">University of Rochester · International Services Office</p>
+        <ul>
+          <li>Coordinate 50+ annual cultural, educational, and recreational programs — including International Education Week and International Student Orientation — for a community of 3,500+ students.</li>
+          <li>Hire, lead, and mentor a team of 10 student workers across event support, social media, and marketing; manage and reconcile the programming budget.</li>
+          <li>Oversee office social media, design promotional materials and infographics, and produce targeted newsletters for multiple student populations.</li>
+          <li>Design and conduct SSN and ITIN training for hiring managers and student employees; support Sprintax Tax Filing and ITIN Application logistics.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when">Aug 2018 — Nov 2021</div>
+      <div>
+        <h3>Executive Assistant to the VP</h3>
+        <p class="org">Nazareth University · Division for Community &amp; Belonging</p>
+        <ul>
+          <li>Managed calendars, a $250K budget, and travel for the inaugural VP, AVP, and two directors.</li>
+          <li>Coordinated internal governance bodies including the Board of Trustees Committee, Advisory Council, and Bias Response &amp; Education Team; led external partnerships through the WNY Diversity Officers group.</li>
+          <li>Managed 5 annual institutional programs, including establishing the university's first Latinx Heritage Month.</li>
+          <li>Supervised 4 graduate assistants; adjudicated student conduct cases as a Hearing Board member and helped design the university's first campus climate and DEI curriculum surveys.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when">Aug — Dec 2020</div>
+      <div>
+        <h3>Adjunct Professor</h3>
+        <p class="org">Nazareth University · Academic &amp; College Success</p>
+        <ul>
+          <li>Taught a first-year seminar exploring identity, motivation, and approaches to learning.</li>
+          <li>Advised students individually to support college transition and goal-setting.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="role">
+      <div class="when">Aug 2015 — Jul 2018</div>
+      <div>
+        <h3>Administrative Coordinator &amp; Graduate Assistant</h3>
+        <p class="org">Nazareth University · Hickey Center for Interfaith Studies &amp; Dialogue</p>
+        <ul>
+          <li>Organized conferences for 50+ international scholars and 500 students, increasing participation by 30%.</li>
+          <li>Raised $40K+ over 3 years through donation and proposal letters to individuals and organizations.</li>
+          <li>Analyzed qualitative survey data in NVivo to determine student learning outcomes.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2><span class="num">03</span>Education &amp; Skills</h2>
+    <div class="twoup">
+      <div>
+        <div class="deg">
+          <p class="card-title">M.S., Higher Education Student Affairs Administration</p>
+          <p class="card-meta">Nazareth University · May 2017</p>
+          <p class="honors">Award for Excellence in HESAA · Student Development Graduate Assistant Award</p>
+        </div>
+        <div class="deg">
+          <p class="card-title">B.A., Psychology</p>
+          <p class="card-meta">Minors in Religious Studies &amp; Interfaith Studies · Nazareth University · May 2014</p>
+          <p class="honors">Summa Cum Laude · Phi Kappa Phi · Psi Chi · Theta Alpha Kappa</p>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group">
+          <div class="skill-label">Student Affairs Systems</div>
+          <div class="chips">
+            <span class="chip">Colleague</span>
+            <span class="chip">Handshake</span>
+            <span class="chip">Maxient</span>
+            <span class="chip">NVivo</span>
+            <span class="chip">Qualtrics</span>
+            <span class="chip">Sunapsis</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Communications &amp; Design</div>
+          <div class="chips">
+            <span class="chip">Canva</span>
+            <span class="chip">Instagram</span>
+            <span class="chip">Mailchimp</span>
+            <span class="chip">MyEmma</span>
+            <span class="chip">MS Office</span>
+            <span class="chip">Slack</span>
+            <span class="chip">Teams</span>
+            <span class="chip">Zoom</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Certifications</div>
+          <div class="chips">
+            <span class="chip">Restorative Practices</span>
+            <span class="chip">Mental Health First Aid</span>
+            <span class="chip">Title IX · Clery</span>
+            <span class="chip">Student Conduct Institute</span>
+            <span class="chip">DEI in the Workplace</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="contact-card">
+      <div>
+        <h2 style="margin:0 0 6px">Let's connect.</h2>
+        <p>Open to new opportunities and relocation. The fastest way to reach me is email.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:stasiatahou@gmail.com">stasiatahou@gmail.com</a>
+        <a href="https://linkedin.com/in/anastasiatahou" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="yr"></span> Anastasia Tahou · Rochester, NY</div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
